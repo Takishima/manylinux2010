@@ -918,32 +918,32 @@ version=%{version}
 rm $RPM_BUILD_ROOT%{_libdir}/libboost_*.so.${version%%.*}
 rm $RPM_BUILD_ROOT%{_libdir}/libboost_*.so.${version%%%%.*}
 
-echo ============================= install Boost.Build ==================
-(cd tools/build
- CXXFLAGS=-fPIC CFLAGS=-fPIC ./b2 --prefix=$RPM_BUILD_ROOT%{_prefix} install
- # Fix some permissions
- chmod +x $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxproc.py
- # Fix shebang using unversioned python
- sed -i '1s@^#!/usr/bin.python$@&3@' $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxproc.py
- # Empty file
- rm $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxygen/windows-paths-check.hpp
- rm -f $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxygen/windows-paths-check.hpp
- # Install the manual page
- %{__install} -p -m 644 %{SOURCE2} -D $RPM_BUILD_ROOT%{_mandir}/man1/b2.1
-)
+# echo ============================= install Boost.Build ==================
+# (cd tools/build
+#  CXXFLAGS=-fPIC CFLAGS=-fPIC ./b2 --prefix=$RPM_BUILD_ROOT%{_prefix} install
+#  # Fix some permissions
+#  chmod +x $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxproc.py
+#  # Fix shebang using unversioned python
+#  sed -i '1s@^#!/usr/bin.python$@&3@' $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxproc.py
+#  # Empty file
+#  rm $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxygen/windows-paths-check.hpp
+#  rm -f $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxygen/windows-paths-check.hpp
+#  # Install the manual page
+#  %{__install} -p -m 644 %{SOURCE2} -D $RPM_BUILD_ROOT%{_mandir}/man1/b2.1
+# )
 
-echo ============================= install Boost.QuickBook ==================
-(cd tools/quickbook
- CXXFLAGS=-fPIC CFLAGS=-fPIC ../build/b2 --prefix=$RPM_BUILD_ROOT%{_prefix}
- %{__install} -p -m 755 ../../dist/bin/quickbook $RPM_BUILD_ROOT%{_bindir}/
- cd ../boostbook
- find dtd -type f -name '*.dtd' | while read tobeinstalledfiles; do
-   install -p -m 644 $tobeinstalledfiles -D $RPM_BUILD_ROOT%{_datadir}/boostbook/$tobeinstalledfiles
- done
- find xsl -type f | while read tobeinstalledfiles; do
-   install -p -m 644 $tobeinstalledfiles -D $RPM_BUILD_ROOT%{_datadir}/boostbook/$tobeinstalledfiles
- done
-)
+# echo ============================= install Boost.QuickBook ==================
+# (cd tools/quickbook
+#  CXXFLAGS=-fPIC CFLAGS=-fPIC ../build/b2 --prefix=$RPM_BUILD_ROOT%{_prefix}
+#  %{__install} -p -m 755 ../../dist/bin/quickbook $RPM_BUILD_ROOT%{_bindir}/
+#  cd ../boostbook
+#  find dtd -type f -name '*.dtd' | while read tobeinstalledfiles; do
+#    install -p -m 644 $tobeinstalledfiles -D $RPM_BUILD_ROOT%{_datadir}/boostbook/$tobeinstalledfiles
+#  done
+#  find xsl -type f | while read tobeinstalledfiles; do
+#    install -p -m 644 $tobeinstalledfiles -D $RPM_BUILD_ROOT%{_datadir}/boostbook/$tobeinstalledfiles
+#  done
+# )
 
 # Install documentation files (HTML pages) within the temporary place
 echo ============================= install documentation ==================
@@ -1350,22 +1350,22 @@ fi
 
 %endif
 
-%files build
-%defattr(-, root, root, -)
-%doc LICENSE_1_0.txt
-%{_datadir}/%{name}-build/
+# %files build
+# %defattr(-, root, root, -)
+# %doc LICENSE_1_0.txt
+# %{_datadir}/%{name}-build/
 
-%files doctools
-%defattr(-, root, root, -)
-%doc LICENSE_1_0.txt
-%{_bindir}/quickbook
-%{_datadir}/boostbook/
+# %files doctools
+# %defattr(-, root, root, -)
+# %doc LICENSE_1_0.txt
+# %{_bindir}/quickbook
+# %{_datadir}/boostbook/
 
-%files b2
-%defattr(-, root, root, -)
-%doc LICENSE_1_0.txt
-%{_bindir}/b2
-%{_mandir}/man1/b2.1*
+# %files b2
+# %defattr(-, root, root, -)
+# %doc LICENSE_1_0.txt
+# %{_bindir}/b2
+# %{_mandir}/man1/b2.1*
 
 %changelog
 * Thu Jun 11 2020 Jonathan Wakely <jwakely@redhat.com> - 1.73.0-5
